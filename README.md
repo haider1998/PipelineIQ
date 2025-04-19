@@ -34,7 +34,7 @@ In the world of cloud data processing, the difference between an optimized and u
 ## 🌟 Core Capabilities
 
 ### 📝 Predictive Query Intelligence
-Leverage ML models trained on millions of BigQuery executions to forecast performance metrics with up to 94% accuracy.
+Leverage ML models trained on millions of BigQuery executions to forecast performance metrics.
 
 - **Pre-Execution Forecasting**: Predict slot usage, execution time, and costs before running a single line of SQL
 - **Complexity Visualization**: Identify performance bottlenecks with intuitive radar charts
@@ -288,30 +288,6 @@ PipelineIQ/
 ├── requirements.txt      # Python dependencies
 └── README.md             # This documentation
 ```
-
-## 🛣️ Future Development Roadmap
-
-Our vision for PipelineIQ extends beyond current capabilities:
-
-**Q1 2025**
-- Multi-project analysis and cross-project optimization
-- Enhanced ML models with 97%+ prediction accuracy
-- Advanced anomaly detection with alerting capabilities
-
-**Q2 2025**
-- Integration with dbt for automated model optimization
-- Custom optimization policy framework
-- Enterprise SSO and team collaboration features
-
-**Q3 2025**
-- Multi-cloud support (Snowflake, Redshift)
-- CI/CD integration for automated query analysis in deployment pipelines
-- Advanced query cataloging with semantic search
-
-**Q4 2025**
-- Expanded GCP product support (Dataflow, Dataproc)
-- Automated A/B testing framework for query optimization
-- Natural language query interface
 
 ## 🌟 Success Stories
 
