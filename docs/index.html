@@ -360,6 +360,9 @@
             position: relative;
             overflow: hidden;
             animation: gradientShift 4s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .nav-cta::before {
@@ -1438,19 +1441,64 @@
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: center;
-                padding-top: 60px;
-                gap: 30px;
+                padding: 40px 20px 20px;
+                gap: 20px;
                 transition: left 0.4s var(--ease-spring);
                 border-right: 1px solid var(--glass-border);
+                z-index: 999;
             }
 
             .nav-menu.active {
                 left: 0;
             }
 
+            .nav-menu li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-menu a {
+                display: block;
+                width: 100%;
+                padding: 16px 24px;
+                font-size: 18px;
+                border-radius: 12px;
+                background: var(--glass-bg);
+                border: 1px solid var(--glass-border);
+                margin: 8px 0;
+            }
+
+            /* Mobile CTA in Navigation */
+            .mobile-nav-cta {
+                display: block;
+                width: 90%;
+                max-width: 280px;
+                padding: 16px 24px;
+                margin: 20px auto 0;
+                background: var(--gradient-cosmic);
+                background-size: 200% 200%;
+                color: white;
+                text-decoration: none;
+                border-radius: 16px;
+                font-weight: 700;
+                text-align: center;
+                box-shadow: 
+                    0 8px 25px rgba(14, 165, 233, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                animation: gradientShift 4s ease-in-out infinite;
+                transition: all 0.3s var(--ease-spring);
+            }
+
+            .mobile-nav-cta:hover {
+                transform: translateY(-2px);
+                box-shadow: 
+                    0 12px 30px rgba(14, 165, 233, 0.5),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+
+            /* Hide desktop CTA on mobile */
             .nav-cta {
-                margin-top: 30px;
-                width: 80%;
+                display: none;
             }
 
             .mobile-menu-toggle {
@@ -1573,6 +1621,11 @@
             .cta-container {
                 padding: 40px 20px;
             }
+
+            .mobile-nav-cta {
+                width: 95%;
+                font-size: 16px;
+            }
         }
 
         /* Performance Optimizations */
@@ -1615,7 +1668,8 @@
         }
 
         .cta-button:focus,
-        .nav-cta:focus {
+        .nav-cta:focus,
+        .mobile-nav-cta:focus {
             box-shadow: 
                 0 0 0 3px rgba(14, 165, 233, 0.3),
                 var(--shadow-xl);
@@ -1649,6 +1703,12 @@
                 <li><a href="#benefits">Benefits</a></li>
                 <li><a href="#results">Results</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <!-- Mobile CTA inside menu -->
+                <li class="mobile-only">
+                    <a href="https://github.com/haider1998/PipelineIQ" class="mobile-nav-cta">
+                        ✨ View Repository
+                    </a>
+                </li>
             </ul>
             <a href="https://github.com/haider1998/PipelineIQ" class="nav-cta" aria-label="View Repository">✨ View Repository</a>
             <div class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
@@ -2029,6 +2089,7 @@
         mobileMenuToggle.addEventListener('click', () => {
             mobileMenuToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
         });
 
         // Close mobile menu when clicking on a link
@@ -2036,6 +2097,7 @@
             if (e.target.tagName === 'A') {
                 mobileMenuToggle.classList.remove('active');
                 navMenu.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
 
@@ -2114,6 +2176,11 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
+                    // Close mobile menu if open
+                    mobileMenuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                    
                     target.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
@@ -2159,6 +2226,7 @@
             resizeTimeout = setTimeout(() => {
                 mobileMenuToggle.classList.remove('active');
                 navMenu.classList.remove('active');
+                document.body.style.overflow = '';
             }, 250);
         });
 
@@ -2167,6 +2235,7 @@
             if (e.key === 'Escape' && navMenu.classList.contains('active')) {
                 mobileMenuToggle.classList.remove('active');
                 navMenu.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
 
@@ -2227,14 +2296,16 @@
             }
         });
 
-        // Dynamic stats update simulation
-        setInterval(() => {
-            const now = new Date();
-            if (now.getMinutes() === 0 && now.getSeconds() === 0) {
-                // Update stats every hour for demo purposes
-                console.log('Stats updated at:', now.toLocaleTimeString());
+        // Click outside to close mobile menu
+        document.addEventListener('click', (e) => {
+            if (navMenu.classList.contains('active') && 
+                !navMenu.contains(e.target) && 
+                !mobileMenuToggle.contains(e.target)) {
+                mobileMenuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
             }
-        }, 60000);
+        });
     </script>
 </body>
 </html>
